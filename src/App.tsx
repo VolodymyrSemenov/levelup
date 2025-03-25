@@ -21,22 +21,40 @@ function MoveSelectButton({
 
 function App() {
   const [computerMove, setComputerMove] = React.useState<Move | null>(null);
-
-  const buttonHandler: () => void = () => {
+  const [userMove, setUserMove] = React.useState<Move | null>(null);
+  const buttonHandler: (userMove: Move) => void = (userMove: Move) => {
     setComputerMove(randomMove);
+    setUserMove(userMove);
   };
 
   return (
     <div className="App">
       <div>
         Select Move:
-        <MoveSelectButton name="Rock" handler={buttonHandler} />
-        <MoveSelectButton name="Paper" handler={buttonHandler} />
-        <MoveSelectButton name="Scissors" handler={buttonHandler} />
+        <MoveSelectButton
+          name="Rock"
+          handler={() => {
+            buttonHandler("Rock");
+          }}
+        />
+        <MoveSelectButton
+          name="Paper"
+          handler={() => {
+            buttonHandler("Paper");
+          }}
+        />
+        <MoveSelectButton
+          name="Scissors"
+          handler={() => {
+            buttonHandler("Scissors");
+          }}
+        />
       </div>
 
-      <div>{computerMove !== null ? `Computer Move: ${computerMove}` : ""}</div>
-      <div>User Move:   </div>
+      <div>
+        {computerMove !== null ? `Computer's Move: ${computerMove}` : ""}
+      </div>
+      <div>{userMove !== null ? `User's Move: ${userMove}` : ""}</div>
     </div>
   );
 }
