@@ -9,22 +9,34 @@ function randomMove(): Move {
   return moveOptions[Math.floor(Math.random() * 3)];
 }
 
-function MoveSelectButton({name}: { name: string }) {
-  return <button>{name}</button>;
+function MoveSelectButton({
+  name,
+  handler,
+}: {
+  name: string;
+  handler: () => void;
+}) {
+  return <button onClick={handler}>{name}</button>;
 }
 
 function App() {
-  const [computerMove, setComputerMove] = React.useState<Move>(randomMove);
+  const [computerMove, setComputerMove] = React.useState<Move | null>(null);
+
+  const buttonHandler: () => void = () => {
+    setComputerMove(randomMove);
+  };
 
   return (
     <div className="App">
-      <div>Computer Move: {computerMove}</div>
       <div>
         Select Move:
-        <MoveSelectButton name="Rock" />
-        <MoveSelectButton name="Paper" />
-        <MoveSelectButton name="Scissors" />
+        <MoveSelectButton name="Rock" handler={buttonHandler} />
+        <MoveSelectButton name="Paper" handler={buttonHandler} />
+        <MoveSelectButton name="Scissors" handler={buttonHandler} />
       </div>
+
+      <div>{computerMove !== null ? `Computer Move: ${computerMove}` : ""}</div>
+      <div>User Move:   </div>
     </div>
   );
 }
