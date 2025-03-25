@@ -1,12 +1,11 @@
 import React from "react";
 import "./App.css";
 
-type Move = "Rock" | "Paper" | "Scissors";
-
-const moveOptions: Move[] = ["Rock", "Paper", "Scissors"];
+const MOVES = ["Rock", "Paper", "Scissors"] as const;
+type Move = (typeof MOVES)[number];
 
 function randomMove(): Move {
-  return moveOptions[Math.floor(Math.random() * 3)];
+  return MOVES[Math.floor(Math.random() * MOVES.length)];
 }
 
 function MoveSelectButton({
