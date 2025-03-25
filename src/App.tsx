@@ -1,5 +1,5 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 type Move = "Rock" | "Paper" | "Scissors";
 
@@ -12,11 +12,7 @@ function randomMove(): Move {
 function App() {
   const [computerMove, setComputerMove] = React.useState<Move>(randomMove);
 
-  return (
-    <div className="App">
-      {computerMove}
-    </div>
-  );
+  return <div className="App">{computerMove}</div>;
 }
 
 export default App;
