@@ -3,10 +3,18 @@ import "./App.css";
 
 const PAGESTATE = ["SelectMove", "Results"] as const;
 type PageState = (typeof PAGESTATE)[number];
+
 const MOVES = ["Rock", "Paper", "Scissors"] as const;
 type Move = (typeof MOVES)[number];
-const WINNER = ["Player", "Computer", "Tie"] as const;
-type Winner = (typeof WINNER)[number];
+
+const RESULTSOPTIONS = ["Player", "Computer", "Tie"] as const;
+type ResultOptions = (typeof RESULTSOPTIONS)[number];
+
+type Results = {
+  Player: number;
+  Computer: number;
+  Tie: number;
+};
 
 function randomMove(): Move {
   return MOVES[Math.floor(Math.random() * MOVES.length)];
@@ -29,7 +37,7 @@ function SelectMoveButton({
 function getWinner(
   userMove: Move | null,
   computerMove: Move | null,
-): Winner | null {
+): ResultOptions | null {
   const elementBeats: Map<Move, Move[]> = new Map([
     ["Rock", ["Scissors"]],
     ["Paper", ["Rock"]],
@@ -51,10 +59,18 @@ function App() {
   const [computerMove, setComputerMove] = React.useState<Move | null>(null);
   const [userMove, setUserMove] = React.useState<Move | null>(null);
   const [pageState, setPageState] = React.useState<PageState>("SelectMove");
+  const [gameResults, setGameResults] = React.useState<Results>({
+    Player: 0,
+    Computer: 0,
+    Tie: 0,
+  });
   const buttonHandler: (userMove: Move) => () => void = (userMove: Move) => {
     return () => {
-      setComputerMove(randomMove);
+      const computerMove = randomMove();
+      setComputerMove(computerMove);
       setUserMove(userMove);
+      gameResults[getWinner(userMove, computerMove) ?? "Tie"]++;
+      setGameResults(gameResults);
       setPageState("Results");
     };
   };
@@ -75,9 +91,15 @@ function App() {
       )}
       {pageState == "Results" && (
         <>
-          <h2>{`Winner:  ${getWinner(userMove, computerMove)}`}</h2>
+          <h2>
+            {getWinner(userMove, computerMove)! +
+              (getWinner(userMove, computerMove) == "Tie" ? "" : " Wins")}
+          </h2>
           <p>{`Computer's Move: ${computerMove}`}</p>
           <p>{`User's Move: ${userMove}`}</p>
+          <p>{"Wins: " + gameResults["Player"]}</p>
+          <p>{"Losses: " + gameResults["Computer"]}</p>
+          <p>{"Draws: " + gameResults["Tie"]}</p>
           <RestartButton
             onClick={() => {
               setPageState("SelectMove");
