@@ -8,52 +8,46 @@ function randomMove(): Move {
   return MOVES[Math.floor(Math.random() * MOVES.length)];
 }
 
-function MoveSelectButton({
+function SelectMoveButton({
   name,
-  handler,
+  onClick,
 }: {
-  name: string;
-  handler: () => void;
+  name: Move;
+  onClick: () => void;
 }) {
-  return <button onClick={handler}>{name}</button>;
+  return <button onClick={onClick}>{name}</button>;
 }
 
 function App() {
   const [computerMove, setComputerMove] = React.useState<Move | null>(null);
   const [userMove, setUserMove] = React.useState<Move | null>(null);
-  const buttonHandler: (userMove: Move) => void = (userMove: Move) => {
-    setComputerMove(randomMove);
-    setUserMove(userMove);
+  const buttonHandler: (userMove: Move) => ()=>void = (userMove: Move) => {
+    return () => {
+      setComputerMove(randomMove);
+      setUserMove(userMove);
+    }
   };
 
   return (
     <div className="App">
       <div>
         Select Move:
-        <MoveSelectButton
+        <SelectMoveButton
           name="Rock"
-          handler={() => {
-            buttonHandler("Rock");
-          }}
+          onClick={buttonHandler("Rock")}
         />
-        <MoveSelectButton
+        <SelectMoveButton
           name="Paper"
-          handler={() => {
-            buttonHandler("Paper");
-          }}
+          onClick={buttonHandler("Paper")}
         />
-        <MoveSelectButton
+        <SelectMoveButton
           name="Scissors"
-          handler={() => {
-            buttonHandler("Scissors");
-          }}
+          onClick={buttonHandler("Scissors")}
         />
       </div>
 
-      <div>
-        {computerMove !== null ? `Computer's Move: ${computerMove}` : ""}
-      </div>
-      <div>{userMove !== null ? `User's Move: ${userMove}` : ""}</div>
+      <div>{computerMove != null && `Computer's Move: ${computerMove}`}</div>
+      <div>{computerMove != null && `User's Move: ${userMove}`}</div>
     </div>
   );
 }
