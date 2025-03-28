@@ -75,12 +75,9 @@ function App() {
       )}
       {pageState == "Results" && (
         <>
-          <h2>
-            {getWinner(userMove, computerMove) != null &&
-              `Winner:  ${getWinner(userMove, computerMove)}`}
-          </h2>
-          <p>{computerMove != null && `Computer's Move: ${computerMove}`}</p>
-          <p>{computerMove != null && `User's Move: ${userMove}`}</p>
+          <h2>{`Winner:  ${getWinner(userMove, computerMove)}`}</h2>
+          <p>{`Computer's Move: ${computerMove}`}</p>
+          <p>{`User's Move: ${userMove}`}</p>
           <RestartButton
             onClick={() => {
               setPageState("SelectMove");
