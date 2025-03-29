@@ -34,16 +34,17 @@ function SelectMoveButton({
   return <button onClick={onClick}>{name}</button>;
 }
 
+const elementBeats: Record<Move, Move[]> = {
+  Rock: ["Scissors"],
+  Paper: ["Rock"],
+  Scissors: ["Paper"],
+};
+
 function getWinner(
   userMove: Move | null,
   computerMove: Move | null,
 ): ResultOptions | null {
-  const elementBeats: Record<Move, Move[]> = {
-    Rock: ["Scissors"],
-    Paper: ["Rock"],
-    Scissors: ["Paper"],
-  };
-  if (userMove == null || computerMove == null) {
+  if (userMove === null || computerMove === null) {
     return null;
   }
   if (elementBeats[userMove]?.includes(computerMove)) {
@@ -78,7 +79,7 @@ function App() {
   return (
     <div className="App">
       <h1>Rock Paper Scissors</h1>
-      {pageState == "SelectMove" && (
+      {pageState === "SelectMove" && (
         <>
           <h2>Select Move:</h2>
           <div className="ButtonDiv">
@@ -91,11 +92,11 @@ function App() {
           </div>
         </>
       )}
-      {pageState == "Results" && (
+      {pageState === "Results" && (
         <>
           <h2>
             {getWinner(userMove, computerMove)! +
-              (getWinner(userMove, computerMove) == "Tie" ? "" : " Wins")}
+              (getWinner(userMove, computerMove) === "Tie" ? "" : " Wins")}
           </h2>
           <p>
             {`User's Move: ${userMove}`} &nbsp;|&nbsp;{" "}
