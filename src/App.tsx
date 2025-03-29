@@ -79,8 +79,9 @@ function App() {
     <div className="App">
       <h1>Rock Paper Scissors</h1>
       {pageState == "SelectMove" && (
-        <div>
-          <h2>Select Move:</h2>
+        <>
+        <h2>Select Move:</h2>
+        <div className="ButtonDiv">
           <SelectMoveButton name="Rock" onClick={buttonHandler("Rock")} />
           <SelectMoveButton name="Paper" onClick={buttonHandler("Paper")} />
           <SelectMoveButton
@@ -88,6 +89,7 @@ function App() {
             onClick={buttonHandler("Scissors")}
           />
         </div>
+        </>
       )}
       {pageState == "Results" && (
         <>
