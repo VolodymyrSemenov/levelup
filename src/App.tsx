@@ -24,6 +24,10 @@ function RestartButton({ onClick }: { onClick: () => void }) {
   return <button onClick={onClick}>Restart</button>;
 }
 
+function Divider() {
+  return <span className="Divider">|</span>;
+}
+
 function SelectMoveButton({
   name,
   onClick,
@@ -99,10 +103,17 @@ function App() {
               (getWinner(userMove, computerMove) === "Tie" ? "" : " Wins")}
           </h2>
           <p>
-            {`User's Move: ${userMove}`} &nbsp;|&nbsp;{" "}
+            {`User's Move: ${userMove}`}
+            <Divider />
             {`Computer's Move: ${computerMove}`}
           </p>
-          <p>{`Wins: ${gameResults["Player"]} | Losses: ${gameResults["Computer"]} | Draws: ${gameResults["Tie"]}`}</p>
+          <p>
+            {`Wins: ${gameResults["Player"]}`}
+            <Divider />
+            {`Losses: ${gameResults["Computer"]}`}
+            <Divider />
+            {`Draws: ${gameResults["Tie"]}`}
+          </p>
           <RestartButton
             onClick={() => {
               setPageState("SelectMove");
