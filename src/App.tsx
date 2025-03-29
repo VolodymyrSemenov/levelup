@@ -38,18 +38,18 @@ function getWinner(
   userMove: Move | null,
   computerMove: Move | null,
 ): ResultOptions | null {
-  const elementBeats: Map<Move, Move[]> = new Map([
-    ["Rock", ["Scissors"]],
-    ["Paper", ["Rock"]],
-    ["Scissors", ["Paper"]],
-  ]);
+  const elementBeats: Record<Move, Move[]> = {
+    Rock: ["Scissors"],
+    Paper: ["Rock"],
+    Scissors: ["Paper"],
+  };
   if (userMove == null || computerMove == null) {
     return null;
   }
-  if (elementBeats.get(userMove)?.includes(computerMove)) {
+  if (elementBeats[userMove]?.includes(computerMove)) {
     return "Player";
   }
-  if (elementBeats.get(computerMove)?.includes(userMove)) {
+  if (elementBeats[computerMove]?.includes(userMove)) {
     return "Computer";
   }
   return "Tie";
@@ -69,8 +69,9 @@ function App() {
       const computerMove = randomMove();
       setComputerMove(computerMove);
       setUserMove(userMove);
-      gameResults[getWinner(userMove, computerMove) ?? "Tie"]++;
-      setGameResults(gameResults);
+
+      const winner: ResultOptions = getWinner(userMove, computerMove) ?? "Tie";
+      setGameResults({ ...gameResults, [winner]: gameResults[winner] + 1 });
       setPageState("Results");
     };
 
@@ -96,7 +97,10 @@ function App() {
             {getWinner(userMove, computerMove)! +
               (getWinner(userMove, computerMove) == "Tie" ? "" : " Wins")}
           </h2>
-          <p>{`User's Move: ${userMove}`} &nbsp;|&nbsp; {`Computer's Move: ${computerMove}`}</p>
+          <p>
+            {`User's Move: ${userMove}`} &nbsp;|&nbsp;{" "}
+            {`Computer's Move: ${computerMove}`}
+          </p>
           <p>{`Wins: ${gameResults["Player"]} | Losses: ${gameResults["Computer"]} | Draws: ${gameResults["Tie"]}`}</p>
           <RestartButton
             onClick={() => {
