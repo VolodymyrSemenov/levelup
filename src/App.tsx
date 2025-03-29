@@ -64,8 +64,8 @@ function App() {
     Computer: 0,
     Tie: 0,
   });
-  const buttonHandler: (userMove: Move) => () => void = (userMove: Move) => {
-    return () => {
+  const buttonHandler: (userMove: Move) => () => void =
+    (userMove: Move) => () => {
       const computerMove = randomMove();
       setComputerMove(computerMove);
       setUserMove(userMove);
@@ -73,22 +73,21 @@ function App() {
       setGameResults(gameResults);
       setPageState("Results");
     };
-  };
 
   return (
     <div className="App">
       <h1>Rock Paper Scissors</h1>
       {pageState == "SelectMove" && (
         <>
-        <h2>Select Move:</h2>
-        <div className="ButtonDiv">
-          <SelectMoveButton name="Rock" onClick={buttonHandler("Rock")} />
-          <SelectMoveButton name="Paper" onClick={buttonHandler("Paper")} />
-          <SelectMoveButton
-            name="Scissors"
-            onClick={buttonHandler("Scissors")}
-          />
-        </div>
+          <h2>Select Move:</h2>
+          <div className="ButtonDiv">
+            <SelectMoveButton name="Rock" onClick={buttonHandler("Rock")} />
+            <SelectMoveButton name="Paper" onClick={buttonHandler("Paper")} />
+            <SelectMoveButton
+              name="Scissors"
+              onClick={buttonHandler("Scissors")}
+            />
+          </div>
         </>
       )}
       {pageState == "Results" && (
@@ -97,11 +96,8 @@ function App() {
             {getWinner(userMove, computerMove)! +
               (getWinner(userMove, computerMove) == "Tie" ? "" : " Wins")}
           </h2>
-          <p>{`Computer's Move: ${computerMove}`}</p>
-          <p>{`User's Move: ${userMove}`}</p>
-          <p>{"Wins: " + gameResults["Player"]}</p>
-          <p>{"Losses: " + gameResults["Computer"]}</p>
-          <p>{"Draws: " + gameResults["Tie"]}</p>
+          <p>{`User's Move: ${userMove}`} &nbsp;|&nbsp; {`Computer's Move: ${computerMove}`}</p>
+          <p>{`Wins: ${gameResults["Player"]} | Losses: ${gameResults["Computer"]} | Draws: ${gameResults["Tie"]}`}</p>
           <RestartButton
             onClick={() => {
               setPageState("SelectMove");
