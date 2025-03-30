@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/github.io/levelup/static/css/main.8efd7a0f.css",
-    "main.js": "/github.io/levelup/static/js/main.b446f89e.js",
-    "static/js/453.90a92eec.chunk.js": "/github.io/levelup/static/js/453.90a92eec.chunk.js",
-    "index.html": "/github.io/levelup/index.html",
-    "main.8efd7a0f.css.map": "/github.io/levelup/static/css/main.8efd7a0f.css.map",
-    "main.b446f89e.js.map": "/github.io/levelup/static/js/main.b446f89e.js.map",
-    "453.90a92eec.chunk.js.map": "/github.io/levelup/static/js/453.90a92eec.chunk.js.map"
+    "main.css": "/levelup/static/css/main.8efd7a0f.css",
+    "main.js": "/levelup/static/js/main.825b08e5.js",
+    "static/js/453.90a92eec.chunk.js": "/levelup/static/js/453.90a92eec.chunk.js",
+    "index.html": "/levelup/index.html",
+    "main.8efd7a0f.css.map": "/levelup/static/css/main.8efd7a0f.css.map",
+    "main.825b08e5.js.map": "/levelup/static/js/main.825b08e5.js.map",
+    "453.90a92eec.chunk.js.map": "/levelup/static/js/453.90a92eec.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8efd7a0f.css",
-    "static/js/main.b446f89e.js"
+    "static/js/main.825b08e5.js"
   ]
 }
